@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { playlistApi } from '../apis/youtubeApi';
 import UserContext from '../contexts/UserContext';
@@ -35,6 +35,7 @@ const PlayItem = styled.li`
     align-items: center;
     padding: 0.25rem;
     width: 100%;
+    background: ${(props) => (props.active === 'true' ? props.theme.sidebarSelectedBg : 'inherit')};
 
     &::before {
       content: '';
@@ -56,7 +57,7 @@ const PlayItem = styled.li`
   }
 `;
 
-function Playlist() {
+function Playlist({ location: { pathname } }) {
   const [isLoading, setLoading] = useState(true);
   const [playlist, setPlaylist] = useState([]);
   const [error, setError] = useState(false);
@@ -102,7 +103,7 @@ function Playlist() {
               snippet: { title },
             } = item;
             return (
-              <PlayItem key={id}>
+              <PlayItem key={id} active={pathname.split('/').includes(id).toString()}>
                 <Link
                   to={{
                     pathname: `/playlist/${id}`,
@@ -121,4 +122,4 @@ function Playlist() {
   );
 }
 
-export default Playlist;
+export default withRouter(Playlist);
