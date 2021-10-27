@@ -6,6 +6,7 @@ import SeachIcon from '../icons/SearchIcon';
 import LoginButton from '../components/LoginButton';
 import UserContext from '../contexts/UserContext';
 import LogoutButton from '../components/LogoutButton';
+import Playlist from '../components/Playlist';
 
 const LogoCont = styled.div`
   padding: 0 1.5625rem;
@@ -63,9 +64,9 @@ function Aside() {
 
   useEffect(() => {
     if (localStorage.getItem('isLoggedIn')) {
-      actions.setLoggedIn(true);
       actions.setAccessToken(localStorage.getItem('accessToken'));
       actions.setProfile(JSON.parse(localStorage.getItem('profile')));
+      actions.setLoggedIn(true);
     }
   }, []);
 
@@ -80,7 +81,7 @@ function Aside() {
         <SeachIcon />
         <input type="text" placeholder="음악을 검색하세요" />
       </SearchForm>
-      <Nav></Nav>
+      <Nav>{state.isLoggedIn && <Playlist />}</Nav>
       <LoginCont>{state.isLoggedIn ? <LogoutButton /> : <LoginButton />}</LoginCont>
     </>
   );

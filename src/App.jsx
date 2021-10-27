@@ -12,7 +12,8 @@ function App() {
         <GlobalStyle />
         <UserProvider>
           <Router>
-            <Route path="/" component={Home} exact />
+            <Route path="/" exact component={Home} />
+            <Route path="/playlist" component={Home} />
           </Router>
         </UserProvider>
       </GlobalTheme>

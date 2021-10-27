@@ -15,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
 
   /* a 태그 초기화 */
   a {
+    color: inherit;
     text-decoration: none;
   }
 

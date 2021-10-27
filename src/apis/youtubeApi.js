@@ -1,20 +1,32 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://www.googleapis.com/youtube/v3';
+const VIDEO_URL = 'https://www.googleapis.com/youtube/v3';
 
-const youtube = axios.create({
-  baseURL: BASE_URL,
+const instance = axios.create({
+  baseURL: VIDEO_URL,
 });
 
 export const videoApi = {
   getPopular: (token) =>
-    youtube.get('/videos', {
+    instance.get('/videos', {
       params: {
         part: 'snippet',
         chart: 'mostPopular',
         maxResults: 20,
         regionCode: 'KR',
         videoCategoryId: 10,
+        access_token: token,
+      },
+    }),
+};
+
+export const playlistApi = {
+  getUserPlaylist: (token) =>
+    instance.get('/playlists', {
+      params: {
+        part: 'snippet',
+        maxResults: 50,
+        mine: true,
         access_token: token,
       },
     }),
