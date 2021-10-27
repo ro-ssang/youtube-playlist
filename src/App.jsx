@@ -4,6 +4,7 @@ import GlobalStyle from './components/GlobalStyle';
 import GlobalTheme from './components/GlobalTheme';
 import { UserProvider } from './contexts/UserContext';
 import Home from './pages/Home';
+import PlaylistPage from './pages/PlaylistPage';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <UserProvider>
           <Router>
             <Route path="/" exact component={Home} />
-            <Route path="/playlist" component={Home} />
+            <Route path="/playlist" component={PlaylistPage} />
           </Router>
         </UserProvider>
       </GlobalTheme>

@@ -95,19 +95,27 @@ function Playlist() {
         <AddPlayItem>
           <PlusIcon />새 재생목록
         </AddPlayItem>
-        {playlist.map((item) => {
-          const {
-            id,
-            snippet: { title },
-          } = item;
-          return (
-            <PlayItem key={id}>
-              <Link to={`/playlist/${id}`}>
-                <span>{title}</span>
-              </Link>
-            </PlayItem>
-          );
-        })}
+        {playlist.length > 0 &&
+          playlist.map((item) => {
+            const {
+              id,
+              snippet: { title },
+            } = item;
+            return (
+              <PlayItem key={id}>
+                <Link
+                  to={{
+                    pathname: `/playlist/${id}`,
+                    state: {
+                      pageTitle: title,
+                    },
+                  }}
+                >
+                  <span>{title}</span>
+                </Link>
+              </PlayItem>
+            );
+          })}
       </ul>
     </>
   );

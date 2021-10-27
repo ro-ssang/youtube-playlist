@@ -30,4 +30,12 @@ export const playlistApi = {
         access_token: token,
       },
     }),
+  getPlaylistItems: (id, token) =>
+    instance.get('/playlistItems', {
+      params: {
+        part: 'snippet',
+        playlistId: id,
+        access_token: token,
+      },
+    }),
 };

@@ -23,6 +23,12 @@ const GlobalStyle = createGlobalStyle`
   ul, li {
     list-style: none;
   }
+
+  /* 버튼 초기화 */
+  button {
+    outline: none;
+    border: none;
+  }
 `;
 
 export default GlobalStyle;
