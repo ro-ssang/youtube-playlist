@@ -18,6 +18,14 @@ export const videoApi = {
         access_token: token,
       },
     }),
+  getVideo: (id, token) =>
+    instance('/videos', {
+      params: {
+        part: 'snippet',
+        id,
+        access_token: token,
+      },
+    }),
 };
 
 export const playlistApi = {
