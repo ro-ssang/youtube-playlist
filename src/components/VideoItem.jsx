@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import UserContext from '../contexts/UserContext';
 import AddListIcon from '../icons/AddListIcon';
 
 const Container = styled.li`
@@ -45,14 +46,21 @@ const IconCont = styled.div`
   right: 0px;
   width: 24px;
   height: 24px;
-  fill: var(--system-primary);
+  fill: ${(props) => props.theme.systemPrimary};
   margin-left: auto;
   z-index: 2;
 `;
 
-function VideoItem({ number, title, imgUrl }) {
+function VideoItem({ id, number, title, imgUrl }) {
+  const { actions } = useContext(UserContext);
+
+  const onClick = () => {
+    actions.setShowing(true);
+    actions.setVideoId(id);
+  };
+
   return (
-    <Container>
+    <Container onClick={onClick}>
       <ImageCont>
         <img src={imgUrl} alt={title} />
       </ImageCont>

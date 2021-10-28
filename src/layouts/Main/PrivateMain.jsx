@@ -59,13 +59,16 @@ function PrivateMain() {
         {videos.length &&
           videos.map((video, index) => {
             const {
-              localized: { title },
-              thumbnails: {
-                medium: { url: imgUrl },
+              id,
+              snippet: {
+                localized: { title },
+                thumbnails: {
+                  medium: { url: imgUrl },
+                },
               },
-            } = video.snippet;
+            } = video;
 
-            return <VideoItem key={index} number={index + 1} title={title} imgUrl={imgUrl} />;
+            return <VideoItem key={id} id={id} number={index + 1} title={title} imgUrl={imgUrl} />;
           })}
       </VideoList>
     </Container>

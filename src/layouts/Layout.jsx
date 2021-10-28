@@ -11,6 +11,7 @@ const AsideWrap = styled.aside`
 `;
 const MainWrap = styled.main`
   overflow-y: scroll;
+  padding-bottom: ${(props) => props.theme.playerBarHeight};
 `;
 const Wrap = styled.div`
   display: grid;

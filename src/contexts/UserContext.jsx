@@ -9,11 +9,17 @@ const UserContext = createContext({
       name: '',
       imageUrl: '',
     },
+    showing: false,
+    videoId: '',
+    player: null,
   },
   actions: {
     setLoggedIn: () => {},
     setProfile: () => {},
     setAccessToken: () => {},
+    setShowing: () => {},
+    setVideoId: () => {},
+    setPlayer: () => {},
   },
 });
 
@@ -21,10 +27,13 @@ function UserProvider({ children }) {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [profile, setProfile] = useState({ name: '', imageUrl: '' });
   const [accessToken, setAccessToken] = useState('');
+  const [showing, setShowing] = useState(false);
+  const [videoId, setVideoId] = useState('');
+  const [player, setPlayer] = useState(null);
 
   const value = {
-    state: { isLoggedIn, profile, accessToken },
-    actions: { setLoggedIn, setProfile, setAccessToken },
+    state: { isLoggedIn, profile, accessToken, showing, videoId, player },
+    actions: { setLoggedIn, setProfile, setAccessToken, setShowing, setVideoId, setPlayer },
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
