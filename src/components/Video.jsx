@@ -41,20 +41,22 @@ function Video() {
     }
   }, [state.isVisible]);
 
-  const onPlayerReady = useCallback(
-    (e) => {
-      e.target.playVideo();
-      const duration = e.target.getDuration();
-      const { minutes, seconds } = formatTime(duration);
-      actions.setVideoDuration(`${minutes}:${seconds}`);
-    },
-    [state.player]
-  );
+  const onPlayerReady = useCallback((e) => {
+    e.target.playVideo();
+  }, []);
 
   const onPlayerStateChange = useCallback((e) => {
+    const duration = e.target.getDuration();
+    const { minutes, seconds } = formatTime(duration);
+    actions.setVideoDuration(`${minutes}:${seconds}`);
     if (e.data === 1) {
       // 재생중
       actions.setPlaying(true);
+      setInterval(() => {
+        const currentTime = e.target.getCurrentTime();
+        const { minutes, seconds } = formatTime(currentTime);
+        actions.setVideoCurrentTime(`${minutes}:${seconds}`);
+      }, 1000);
     } else if (e.data === 2) {
       // 일시정지
       actions.setPlaying(false);

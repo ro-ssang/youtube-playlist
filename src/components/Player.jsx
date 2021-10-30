@@ -144,8 +144,6 @@ function Player() {
   const [error, setError] = useState(false);
   const { state, actions } = useContext(UserContext);
 
-  console.log(state.videoDuration);
-
   const onClickPlaying = useCallback(() => {
     if (state.isPlaying) {
       state.player.pauseVideo();
@@ -219,7 +217,9 @@ function Player() {
         </div>
       </SongInfo>
       <RightControlBox>
-        <span>0:00/{state.videoDuration}</span>
+        <span>
+          {state.videoCurrentTime}/{state.videoDuration}
+        </span>
         <div>
           <PrevIcon />
         </div>

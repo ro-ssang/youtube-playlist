@@ -14,7 +14,8 @@ const UserContext = createContext({
     player: null,
     isVisible: false,
     isPlaying: false,
-    videoDuration: '0:00',
+    videoDuration: '00:00',
+    videoCurrentTime: '00:00',
   },
   actions: {
     setLoggedIn: () => {},
@@ -26,6 +27,7 @@ const UserContext = createContext({
     setVisible: () => {},
     setPlaying: () => {},
     setVideoDuration: () => {},
+    setVideoCurrentTime: () => {},
   },
 });
 
@@ -38,10 +40,22 @@ function UserProvider({ children }) {
   const [player, setPlayer] = useState(null);
   const [isVisible, setVisible] = useState(false);
   const [isPlaying, setPlaying] = useState(false);
-  const [videoDuration, setVideoDuration] = useState('0:00');
+  const [videoDuration, setVideoDuration] = useState('00:00');
+  const [videoCurrentTime, setVideoCurrentTime] = useState('00:00');
 
   const value = {
-    state: { isLoggedIn, profile, accessToken, showing, videoId, player, isVisible, isPlaying, videoDuration },
+    state: {
+      isLoggedIn,
+      profile,
+      accessToken,
+      showing,
+      videoId,
+      player,
+      isVisible,
+      isPlaying,
+      videoDuration,
+      videoCurrentTime,
+    },
     actions: {
       setLoggedIn,
       setProfile,
@@ -52,6 +66,7 @@ function UserProvider({ children }) {
       setVisible,
       setPlaying,
       setVideoDuration,
+      setVideoCurrentTime,
     },
   };
 
