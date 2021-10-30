@@ -142,18 +142,21 @@ function Player() {
   const [isLoading, setLoading] = useState(true);
   const [songInfo, setSongInfo] = useState(null);
   const [error, setError] = useState(false);
-  const [isPlaying, setPlaying] = useState(true);
-  const { state } = useContext(UserContext);
+  const { state, actions } = useContext(UserContext);
+
+  console.log(state.videoDuration);
 
   const onClickPlaying = useCallback(() => {
-    if (isPlaying) {
+    if (state.isPlaying) {
       state.player.pauseVideo();
-      setPlaying(false);
     } else {
       state.player.playVideo();
-      setPlaying(true);
     }
-  }, [state.player, isPlaying]);
+  }, [state.player, state.isPlaying]);
+
+  const onClickVisible = useCallback(() => {
+    actions.setVisible((prev) => !prev);
+  }, []);
 
   useEffect(() => {
     async function fetchVideo() {
@@ -184,7 +187,7 @@ function Player() {
   return (
     <Container>
       <LeftControlBox>
-        <div>
+        <div onClick={onClickVisible}>
           <UpIcon />
         </div>
         <div>
@@ -216,11 +219,11 @@ function Player() {
         </div>
       </SongInfo>
       <RightControlBox>
-        <span>0:00/0:00</span>
+        <span>0:00/{state.videoDuration}</span>
         <div>
           <PrevIcon />
         </div>
-        <div onClick={onClickPlaying}>{isPlaying ? <PauseIcon /> : <PlayIconLg />}</div>
+        <div onClick={onClickPlaying}>{state.isPlaying ? <PauseIcon /> : <PlayIconLg />}</div>
         <div>
           <NextIcon />
         </div>

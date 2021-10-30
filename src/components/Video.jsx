@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import UserContext from '../contexts/UserContext';
+import { formatTime } from '../utils/formatTime';
 
 const Container = styled.div`
   position: fixed;
@@ -12,11 +13,12 @@ const Container = styled.div`
   -webkit-box-pack: center;
   justify-content: center;
   ${(props) => `width: calc(100% - ${props.theme.sidebarwidth} - ${props.theme.scrollbarWidth})`};
-  ${(props) => `height: calc(70vh - ${props.theme.playerBarHeight})`};
+  ${(props) => `height: calc(100vh - ${props.theme.playerBarHeight})`};
   padding: 2.875rem 3.5rem 0px;
   background: rgb(10, 10, 10);
-  transform: translate3d(0px, 0px, 0px);
-  transition: transform 0.3s ease 0s;
+  transform: translate3d(0px, ${(props) => (props.isVisible ? '0px' : '100vh')}, 0px);
+  transition: transform 0.5s ease 0s;
+  visibility: ${(props) => (props.isVisible || props.isAnimate ? 'visible' : 'hidden')};
   z-index: 10;
 
   iframe {
@@ -26,9 +28,37 @@ const Container = styled.div`
 
 function Video() {
   const { state, actions } = useContext(UserContext);
+  const [isAnimate, setAnimate] = useState(false);
 
-  const onPlayerReady = useCallback((e) => {
-    e.target.playVideo();
+  useEffect(() => {
+    const time = 500;
+
+    if (!state.isVisible) {
+      setAnimate(true);
+      setTimeout(() => {
+        setAnimate(false);
+      }, time);
+    }
+  }, [state.isVisible]);
+
+  const onPlayerReady = useCallback(
+    (e) => {
+      e.target.playVideo();
+      const duration = e.target.getDuration();
+      const { minutes, seconds } = formatTime(duration);
+      actions.setVideoDuration(`${minutes}:${seconds}`);
+    },
+    [state.player]
+  );
+
+  const onPlayerStateChange = useCallback((e) => {
+    if (e.data === 1) {
+      // 재생중
+      actions.setPlaying(true);
+    } else if (e.data === 2) {
+      // 일시정지
+      actions.setPlaying(false);
+    }
   }, []);
 
   const loadVideo = useCallback(() => {
@@ -39,6 +69,7 @@ function Video() {
       },
       events: {
         onReady: onPlayerReady,
+        onStateChange: onPlayerStateChange,
       },
     });
 
@@ -66,7 +97,7 @@ function Video() {
   }, []);
 
   return (
-    <Container>
+    <Container isVisible={state.isVisible} isAnimate={isAnimate}>
       <div id={`youtube-player-${state.videoId}`}></div>
     </Container>
   );
