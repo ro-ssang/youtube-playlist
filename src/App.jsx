@@ -7,6 +7,7 @@ import Video from './components/Video';
 import UserContext from './contexts/UserContext';
 import Home from './pages/Home';
 import PlaylistPage from './pages/PlaylistPage';
+import SearchPage from './pages/SearchPage';
 
 function App() {
   const { state } = useContext(UserContext);
@@ -18,6 +19,7 @@ function App() {
         <Router>
           <Route path="/" exact component={Home} />
           <Route path="/playlist" component={PlaylistPage} />
+          <Route path="/search" component={SearchPage} />
           <Route>
             {state.showing && (
               <>
