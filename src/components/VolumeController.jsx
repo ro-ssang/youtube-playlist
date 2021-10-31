@@ -5,7 +5,7 @@ const GaugeCont = styled.div`
   padding: 1rem 0px;
   width: 100%;
 `;
-const GaugeWrapper = styled.div`
+export const GaugeWrapper = styled.div`
   position: relative;
   height: 2px;
 `;

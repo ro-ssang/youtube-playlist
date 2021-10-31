@@ -11,7 +11,8 @@ import ShuffleIcon from '../icons/ShuffleIcon';
 import UpIcon from '../icons/UpIcon';
 import VolumeIcon from '../icons/VolumeIcon';
 import Loader from './Loader';
-import VolumeController from './VolumeController';
+import VideoProgressBar, { DotCont, ProgressBarWrapper } from './VideoProgressBar';
+import VolumeController, { GaugeWrapper } from './VolumeController';
 
 const Container = styled.div`
   position: fixed;
@@ -28,6 +29,18 @@ const Container = styled.div`
   backdrop-filter: saturate(50%) blur(20px);
   color: ${(props) => props.theme.systemPrimary};
   z-index: 100;
+
+  &:hover {
+    ${GaugeWrapper} {
+      height: 4px;
+    }
+    ${ProgressBarWrapper} {
+      height: 4px;
+    }
+    ${DotCont} {
+      display: flex;
+    }
+  }
 `;
 const LeftControlBox = styled.div`
   height: 100%;
@@ -138,6 +151,14 @@ const RightControlBox = styled.div`
     fill: ${(props) => props.theme.themeColor};
   }
 `;
+const ProgressBarCont = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  transform: translateY(-50%);
+  cursor: pointer;
+`;
 
 function Player() {
   const [isLoading, setLoading] = useState(true);
@@ -231,6 +252,9 @@ function Player() {
           <NextIcon />
         </div>
       </RightControlBox>
+      <ProgressBarCont>
+        <VideoProgressBar />
+      </ProgressBarCont>
     </Container>
   );
 }
