@@ -3,9 +3,21 @@ import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { playlistApi } from '../apis/youtubeApi';
 import UserContext from '../contexts/UserContext';
+import BrowseIcon from '../icons/BrowseIcon';
 import PlusIcon from '../icons/PlusIcon';
 import Loader from './Loader';
 
+const BrowseCont = styled.ul`
+  a {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: 0.9375rem;
+    padding: 0.25rem;
+    border-radius: 6px;
+    background: ${(props) => (props.active ? props.theme.sidebarSelectedBg : 'none')};
+  }
+`;
 const Title = styled.div`
   font-size: 0.625rem;
   line-height: 1.3;
@@ -91,6 +103,14 @@ function Playlist({ location: { pathname } }) {
 
   return (
     <>
+      <BrowseCont active={pathname === '/'}>
+        <li>
+          <Link to="/">
+            <BrowseIcon />
+            <span>둘러보기</span>
+          </Link>
+        </li>
+      </BrowseCont>
       <Title>플레이리스트</Title>
       <ul>
         <AddPlayItem>
