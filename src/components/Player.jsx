@@ -11,6 +11,7 @@ import ShuffleIcon from '../icons/ShuffleIcon';
 import UpIcon from '../icons/UpIcon';
 import VolumeIcon from '../icons/VolumeIcon';
 import Loader from './Loader';
+import VolumeController from './VolumeController';
 
 const Container = styled.div`
   position: fixed;
@@ -197,7 +198,9 @@ function Player() {
         <div>
           <VolumeIcon />
         </div>
-        <div></div>
+        <div>
+          <VolumeController />
+        </div>
       </LeftControlBox>
       <SongInfo>
         <div>
